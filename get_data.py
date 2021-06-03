@@ -46,13 +46,16 @@ def get_data(n):
 
     data['時間戳記'] = ddatetime
     data.set_index('時間戳記',inplace=True)
-    date = str(dt.date(2021, 5, 26))
+    date = str(dt.date(2021, 5, 26)) ### today ###
 
     if date in data.index:
         data = data[date] # 取出今天的資料 dt.datetime.now().date()
         data = data.reset_index()
     else:
         data=pd.DataFrame(columns=data.columns) 
+        
+    for t in range(len(data)):
+        data.loc[t,'時間戳記'] = data['時間戳記'][t].time() #去掉日期
     ###############################################
     #座位
     aaa = pd.read_csv(DATA_PATH.joinpath('seat.csv'),index_col = '座位') #座位表
@@ -78,22 +81,19 @@ def get_data(n):
     for d in ddata.index:
         count+=1
 
-        
         if d in aaa.index:
             if type(aaa.loc[d]['姓名']) == str: # 判斷是不是已經有人坐在這個位子了
                 resit_data = resit_data.append(aaa.loc[d])
             
-            
             aaa.loc[d] = aaa.loc[d][:2].append(ddata.iloc[count]) #資料有變動時要確認
             aaa.loc[d,'status'] = '1'
             
-            if ddata['時間戳記'][count].time()>Late:
+            if ddata['時間戳記'][count]>Late:
                 aaa.loc[ddata.index[count],'p']='L'
-                
 
         else:
-            print('xxx')
-            print(d)
+            print('填錯位子')
+            print('座位：'+ d)
             error_data = error_data.append(ddata.loc[d]) # 填錯位子
 
 

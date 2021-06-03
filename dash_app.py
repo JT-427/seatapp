@@ -107,12 +107,6 @@ Table_seat = dash_table.DataTable(
     style_header={'backgroundColor': '#fff'},
 )
 
-app.head = ([
-    html.Link(
-        href='https://www.google.com/favicon.ico',
-        rel='icon'
-    )
-])
 
 app.layout = dbc.Container([
     dbc.Row([
