@@ -84,7 +84,7 @@ def get_data(n):
                 resit_data = resit_data.append(aaa.loc[d])
             
             
-            aaa.loc[d] = aaa.loc[d][:2].append(ddata.iloc[count]) #資料有變動時要修改
+            aaa.loc[d] = aaa.loc[d][:2].append(ddata.iloc[count]) #資料有變動時要確認
             aaa.loc[d,'status'] = '1'
             
             if ddata['時間戳記'][count].time()>Late:

@@ -27,9 +27,11 @@ def SetColor(x):
 #############################################
 #網頁
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX],
-                meta_tags=[{'name': 'viewport',
-                            'content': 'width=device-width, initial-scale=1.0'}])
+app = dash.Dash(__name__,
+    external_stylesheets=[dbc.themes.LUX],
+    title="seatapp",
+    meta_tags=[{'name': 'viewport',
+        'content': 'width=device-width, initial-scale=1.0'}])
 
 server = app.server
 data = get_data(1)
@@ -52,7 +54,7 @@ Card_ps = dbc.Card([
                     ,href = 'https://docs.google.com/spreadsheets/d/1szr1Lz1mUx5wJlg3xtZXsDjZ1dqfj--Xg-ROPiTlEw0/edit#gid=0'
                     ,external_link = True
                     ,className = "text-primary ")
-                    ,className = "text-center border border-primary font-weight-bold")
+                    ,className = "p-3 text-center border border-primary font-weight-bold")
       ])
     ])
 
@@ -60,7 +62,7 @@ Card_ps = dbc.Card([
 Card_Ops = dbc.Card([
         dbc.CardBody([
             html.H5(children = '準時人數', className="card-title text-center"),
-            html.H1(dbc.Card(id = 'Ops' ,children = 0,className = "text-primary text-center border border-primary font-weight-bold"))
+            html.H1(dbc.Card(id = 'Ops' ,children = 0,className = "p-3 text-primary text-center border border-primary font-weight-bold"))
         ])
     ])
 
@@ -68,16 +70,14 @@ Card_Ops = dbc.Card([
 Card_Lps = dbc.Card([
         dbc.CardBody([
             html.H5(children = '遲到人數', className="card-title text-center"),
-            html.H1(dbc.Card(id = 'Lps' ,children = 0,className = "text-primary text-center border border-primary font-weight-bold"))
+            html.H1(dbc.Card(id = 'Lps' ,children = 0,className = "p-3 text-primary text-center border border-primary font-weight-bold"))
         ])
     ])
 
 # Graph_seat
 Graph_seat = dbc.Card([
-        dbc.CardBody([
             dcc.Graph(id='seat_graph',figure={},config={'displayModeBar':False})
-            ])
-    ])
+    ],className="align-self-center")
 
 # ListGroup 各小組到場人數
 ListGroup_P = dbc.ListGroup(
@@ -99,7 +99,7 @@ Table_seat = dash_table.DataTable(
     sort_action="native",  # give user capability to sort columns
     sort_mode="single",  # sort across 'multi' or 'single' columns
     page_action='none',  # render all of the data at once. No paging.
-    style_table={'height': '200px', 'overflowY': 'auto'},
+    style_table={'height': '300px', 'overflowY': 'auto'},
     style_cell={'textAlign': 'left', 'minWidth': '50px', 
                 'width': '50px', 'maxWidth': '50px',
                 'backgroundColor': '#fff',
@@ -107,6 +107,12 @@ Table_seat = dash_table.DataTable(
     style_header={'backgroundColor': '#fff'},
 )
 
+app.head = ([
+    html.Link(
+        href='https://www.google.com/favicon.ico',
+        rel='icon'
+    )
+])
 
 app.layout = dbc.Container([
     dbc.Row([
@@ -115,19 +121,20 @@ app.layout = dbc.Container([
                 Card_ps,
                 Card_Ops,
                 Card_Lps
-            ])
+            ],className = "m-3")
         ])
-    ],className = "border border-primary"),
+    ],className = "mt-3 border border-primary"),
     html.Br(),
     dbc.Row([
         dbc.Col([
-            dbc.Card([ListGroup_P]),
-            dbc.Card([Table_seat])
-            ]),
+            dbc.Card([ListGroup_P],className="my-3"),
+            dbc.Card([Table_seat],className="my-3")
+            ],className = "ml-4"
+            ),
 
         dbc.Col([
-            html.Div([Graph_seat])
-            ])
+            html.Div([Graph_seat],className="my-3")
+            ],width=8)
     ],className = "border border-primary"
     ),dcc.Interval(id='updates', n_intervals=0, interval=1000*10)
 ])
@@ -162,8 +169,8 @@ def update_graph(n_intervals):
            })
     fig.update_layout(
         autosize=False,
-        # width=700,
-        # height=650,
+        width=700,
+        height=650,
         yaxis={'visible': False, 'showticklabels': False},
         xaxis={'visible': False, 'showticklabels': False},
         plot_bgcolor='#ffffff' ,# 圖表背景顏色
