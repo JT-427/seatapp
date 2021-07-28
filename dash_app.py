@@ -24,6 +24,51 @@ def SetColor(x):
     elif(x == '0'):
         return "#e6e6e6"
 
+ddata = get_data(0)
+
+def plot(ddata):
+    fig = px.scatter(ddata,
+            x = 'sit_x',
+            y = 'sit_y',
+            range_x = [-2,14.5],
+            range_y = [-2,13.5],
+            hover_name = '姓名',
+        #    color = 'status',
+            # title = 'A區',
+            hover_data={
+                "sit_x" :False,
+                "sit_y":False,
+                '座位':ddata.index,
+            #    '小組':[ddata['小組']]
+            })
+    fig.update_layout(
+        autosize=False,
+        # width=700,
+        # height=650,
+        yaxis={'visible': False, 'showticklabels': False},
+        xaxis={'visible': False, 'showticklabels': False},
+        plot_bgcolor='#ffffff' ,# 圖表背景顏色
+        # showlegend=False
+        )
+    fig.update_traces(
+        marker={'size': 10,'symbol':'arrow-up','color':list(map(SetColor, ddata['status']))}
+    )
+    fig.add_layout_image(
+        dict(
+            source="assets/seat_img.jpg",
+            xref="x",
+            yref="y",
+            x=-6,
+            y=16,
+            sizex=20*1.414,
+            sizey=20,
+            sizing="stretch",
+            opacity=0.5,
+            layer="below")
+    )
+    return fig
+
+fig = plot(get_data(0))
 #############################################
 #網頁
 
@@ -36,6 +81,7 @@ app = dash.Dash(__name__,
 server = app.server
 data = get_data(1)
 
+'''
 # Navbar
 Navbar = dbc.Navbar([
     dbc.Col(html.Img(src=app.get_asset_url('logo.png'), height="70px")),
@@ -45,6 +91,7 @@ Navbar = dbc.Navbar([
     color = "light",
     light=True
     )
+'''
 
 # Card 現場人數
 Card_ps = dbc.Card([
@@ -76,7 +123,7 @@ Card_Lps = dbc.Card([
 
 # Graph_seat
 Graph_seat = dbc.Card([
-            dcc.Graph(id='seat_graph',figure={},config={'displayModeBar':False})
+            dcc.Graph(id='seat_graph',figure=fig,config={'displayModeBar':False})
     ],className="align-self-center")
 
 # ListGroup 各小組到場人數
@@ -146,33 +193,8 @@ app.layout = dbc.Container([
     prevent_initial_call=True
 )
 def update_graph(n_intervals):
-    ddata = get_data(0)
-    fig = px.scatter(ddata,
-           x = 'sit_x',
-           y = 'sit_y',
-           range_x = [-0.5,14.5],
-           range_y = [-0.5,13.5],
-           hover_name = '姓名',
-        #    color = 'status',
-           # title = 'A區',
-           hover_data={
-               "sit_x" :False,
-               "sit_y":False,
-               '座位':ddata.index,
-            #    '小組':[ddata['小組']]
-           })
-    fig.update_layout(
-        autosize=False,
-        width=700,
-        height=650,
-        yaxis={'visible': False, 'showticklabels': False},
-        xaxis={'visible': False, 'showticklabels': False},
-        plot_bgcolor='#ffffff' ,# 圖表背景顏色
-        # showlegend=False
-        )
-    fig.update_traces(
-        marker={'size': 10,'symbol':'square','color':list(map(SetColor, ddata['status']))}
-    )
+    fig = plot(get_data(0))
+
     data = get_data(1)
     Table_seat_columns = [{'name': str(x), 'id': str(x), 'deletable': False, 'renamable': False}for x in data.columns]
     Table_seat_data = data.to_dict('records')
@@ -197,4 +219,4 @@ def update_graph(n_intervals):
 
 
 if __name__ == '__main__':
-  app.run_server(debug=False)
+  app.run_server(debug=True)
