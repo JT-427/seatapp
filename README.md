@@ -1,17 +1,17 @@
 # seatapp
-
+> 2020年開始的新冠疫情，讓我們的生活型態產生許多改變，當參加大型活動時，需要實名制，甚至連座位都需要紀錄，以方便後續疫調；因此在2021年台灣疫情再次爆發時，開發了這個網站，紀錄與會者的出席紀錄，同時也將座位以圖像化來呈現。
 
 ## 使用方法
 - 與會者：  
 與會者進場時，先掃描QRCode填寫Google表單，填寫基本資料和座位編號後送出表單
 - 工作人員：  
 監看頁面
-![img]()  
+![img](https://github.com/JT-427/seatapp/blob/main/assets/screenshot.png)  
 右下區為座位圖，黑色代表該位子已經有人，灰色則為空座位
 
 ## 程式設計
 - **框架**  
-[dash](https://dash.plotly.com)，是一個能夠簡單快速的將前端、後端，一次解決的框架
+[Dash](https://dash.plotly.com)，是一個能夠簡單快速的將前端、後端，一次解決的框架
 
 - **資料儲存位置**  
     - 用Google Sheet來進行紀錄，串接Google提供的[Sheet API](https://developers.google.com/sheets/api)，來讀取資料。  
