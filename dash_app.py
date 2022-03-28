@@ -131,7 +131,7 @@ ListGroup_P = dbc.ListGroup(
     id = 'ListGroup_P',
     children=[
     dbc.ListGroupItem(
-        children = [g, dbc.Badge(data['小組'].value_counts()[g] , className="badge bg-light")], 
+        children = [g, dbc.Badge(data['所屬小組'].value_counts()[g] , className="badge bg-light")], 
         className="d-flex justify-content-between align-items-center") for g in data['小組'].unique()
 ])
 
