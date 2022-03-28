@@ -86,7 +86,7 @@ data = get_data(1)
 Navbar = dbc.Navbar([
     dbc.Col(html.Img(src=app.get_asset_url('logo.png'), height="70px")),
     # dbc.NavbarBrand("TNCC", className="navbar-brand"), 
-    dbc.NavLink("sheet", href="https://docs.google.com/spreadsheets/d/1szr1Lz1mUx5wJlg3xtZXsDjZ1dqfj--Xg-ROPiTlEw0/edit#gid=0", className="nav-link active")
+    dbc.NavLink("sheet", href="https://docs.google.com/spreadsheets/xxxxx", className="nav-link active")
     ],
     color = "light",
     light=True
@@ -98,7 +98,7 @@ Card_ps = dbc.Card([
     dbc.CardBody([
         html.H5(children = '現場人數', className="card-title text-center"),
         html.H1(dbc.CardLink(id = 'num' ,children = 0
-                    ,href = 'https://docs.google.com/spreadsheets/d/1szr1Lz1mUx5wJlg3xtZXsDjZ1dqfj--Xg-ROPiTlEw0/edit#gid=0'
+                    ,href = 'https://docs.google.com/spreadsheets/xxxxx'
                     ,external_link = True
                     ,className = "text-primary ")
                     ,className = "p-3 text-center border border-primary font-weight-bold")

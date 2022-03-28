@@ -12,9 +12,11 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 def get_data(n):
 
-    gc = pygsheets.authorize(service_account_file=DATA_PATH.joinpath("certain-song-300006-93eb2716fa03.json"))
+    gc = pygsheets.authorize(service_account_file=DATA_PATH.joinpath("xxxxx.json"))
+    print(DATA_PATH.joinpath("seatapp-345509-37e6814a5e48.json"))
 
-    survey_url = 'https://docs.google.com/spreadsheets/d/1szr1Lz1mUx5wJlg3xtZXsDjZ1dqfj--Xg-ROPiTlEw0/edit#gid=0'
+    survey_url = 'https://docs.google.com/spreadsheets/xxxxx'
+    
     sh = gc.open_by_url(survey_url).sheet1.get_all_values()
     data = pd.DataFrame(sh[1:],columns=sh[0])
 
@@ -46,7 +48,7 @@ def get_data(n):
 
     data['時間戳記'] = ddatetime
     data.set_index('時間戳記',inplace=True)
-    date = str(dt.date(2021, 5, 26)) ### today ###
+    date = str(dt.datetime.now().date()) ### today ###
 
     if date in data.index:
         data = data[date] # 取出今天的資料 dt.datetime.now().date()

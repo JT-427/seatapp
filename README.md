@@ -3,7 +3,7 @@
 
 ## 使用方法
 - 與會者：  
-與會者進場時，先掃描QRCode填寫Google表單，填寫基本資料和座位編號後送出表單
+與會者進場時，先掃描QRCode填寫[Google表單](https://docs.google.com/forms/d/e/1FAIpQLScBA6Rcj24JDMC0NAKl_XoU-E-GPY8gK2t6c3z8vCSwWOfg6A/viewform)，填寫基本資料和座位編號後送出表單
 - 工作人員：  
 監看頁面
 ![img](https://github.com/JT-427/seatapp/blob/main/assets/screenshot.png)  
